@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 //use map in rxjs operators
 import { map } from 'rxjs/operators';
+import { Post } from './post.model';
 
 @Component({
   selector: 'app-root',
@@ -42,8 +43,8 @@ export class AppComponent implements OnInit {
     this.http
       .get('https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json')
       .pipe(
-        map((response: any) => {
-          const postArray = [];
+        map((response: { [key: string]: Post }) => {
+          const postArray: Post[] = [];
           for (const key in response) {
             if (response.hasOwnProperty(key))
               postArray.push({ ...response[key], id: key });
@@ -51,6 +52,8 @@ export class AppComponent implements OnInit {
           return postArray;
         })
       )
-      .subscribe((response) => console.log(response));
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 }
