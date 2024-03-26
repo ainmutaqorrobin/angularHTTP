@@ -10,7 +10,7 @@ import { Post } from './post.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     // Send Http request
     console.log(postData);
     this.http
-      .post(
+      .post<{ name: String }>(
         'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
         postData
       )
@@ -41,9 +41,11 @@ export class AppComponent implements OnInit {
 
   private fetchPost() {
     this.http
-      .get('https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json')
+      .get<{ [key: string]: Post }>(
+        'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json'
+      )
       .pipe(
-        map((response: { [key: string]: Post }) => {
+        map((response) => {
           const postArray: Post[] = [];
           for (const key in response) {
             if (response.hasOwnProperty(key))
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe((response) => {
-        console.log(response);
+        this.loadedPosts = response;
       });
   }
 }
