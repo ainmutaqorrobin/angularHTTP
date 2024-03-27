@@ -15,9 +15,7 @@ export class PostService {
         'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
         postData
       )
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .subscribe((response) => {});
   }
 
   //send get Http request
@@ -36,5 +34,11 @@ export class PostService {
           return postArray;
         })
       );
+  }
+
+  clearPost() {
+    return this.http.delete(
+      'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json'
+    );
   }
 }
