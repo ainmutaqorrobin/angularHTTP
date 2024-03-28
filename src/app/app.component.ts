@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
       (post) => {
         this.isLoading = false;
         this.loadedPosts = post;
+        this.error = null;
       },
       (error) => {
         this.error = error.message;
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
       (post) => {
         this.isLoading = false;
         this.loadedPosts = post;
+        this.error = null;
       },
       (error) => {
         console.log(error);

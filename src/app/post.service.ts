@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from './post.model';
 //use map in rxjs operators
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
@@ -33,6 +34,9 @@ export class PostService {
               postArray.push({ ...response[key], id: key });
           }
           return postArray;
+        }),
+        catchError((error) => {
+          return throwError(error);
         })
       );
   }
