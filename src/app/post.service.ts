@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from './post.model';
 //use map in rxjs operators
@@ -22,11 +22,16 @@ export class PostService {
 
   //send get Http request
   fetchPost() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'keymark');
+
     return this.http
       .get<{ [key: string]: Post }>(
         'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Robin header' }),
+          params: searchParams,
         }
       )
       .pipe(
