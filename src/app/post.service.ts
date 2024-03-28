@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from './post.model';
 //use map in rxjs operators
@@ -24,7 +24,10 @@ export class PostService {
   fetchPost() {
     return this.http
       .get<{ [key: string]: Post }>(
-        'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json'
+        'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
+        {
+          headers: new HttpHeaders({ 'Custom-Header': 'Robin header' }),
+        }
       )
       .pipe(
         map((response) => {

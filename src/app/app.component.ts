@@ -56,4 +56,8 @@ export class AppComponent implements OnInit {
       this.loadedPosts = [];
     });
   }
+
+  onHandleError() {
+    this.error = null;
+  }
 }
