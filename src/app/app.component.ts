@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//use map in rxjs operators
-import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { PostService } from './post.service';
 
@@ -13,15 +11,22 @@ import { PostService } from './post.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isLoading: boolean = false;
+  error = null;
 
   constructor(private http: HttpClient, private postService: PostService) {}
 
   ngOnInit() {
     this.isLoading = true;
-    this.postService.fetchPost().subscribe((post) => {
-      this.isLoading = false;
-      this.loadedPosts = post;
-    });
+    this.postService.fetchPost().subscribe(
+      (post) => {
+        this.isLoading = false;
+        this.loadedPosts = post;
+      },
+      (error) => {
+        this.error = error.message;
+        this.isLoading = false;
+      }
+    );
   }
 
   onCreatePost(postData: { title: string; content: string }) {
@@ -30,10 +35,18 @@ export class AppComponent implements OnInit {
 
   onFetchPosts() {
     this.isLoading = true;
-    this.postService.fetchPost().subscribe((post) => {
-      this.isLoading = false;
-      this.loadedPosts = post;
-    });
+    this.postService.fetchPost().subscribe(
+      (post) => {
+        this.isLoading = false;
+        this.loadedPosts = post;
+      },
+      (error) => {
+        console.log(error);
+
+        this.error = error.message;
+        this.isLoading = false;
+      }
+    );
   }
 
   onClearPosts() {

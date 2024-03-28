@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from './post.model';
+//use map in rxjs operators
 import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +16,7 @@ export class PostService {
         'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
         postData
       )
-      .subscribe((response) => {});
+      .subscribe();
   }
 
   //send get Http request
