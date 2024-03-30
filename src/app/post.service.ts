@@ -37,6 +37,7 @@ export class PostService {
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Robin header' }),
           params: searchParams,
+          responseType: 'json',
         }
       )
       .pipe(
@@ -60,6 +61,7 @@ export class PostService {
         'https://ng-backend-41e43-default-rtdb.firebaseio.com/posts.json',
         {
           observe: 'events',
+          responseType: 'json',
         }
       )
       .pipe(
