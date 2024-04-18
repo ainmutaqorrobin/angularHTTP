@@ -60,4 +60,8 @@ export class AppComponent implements OnInit {
   onHandleError() {
     this.error = null;
   }
+
+  onCallLog() {
+    console.log('Call this method');
+  }
 }
